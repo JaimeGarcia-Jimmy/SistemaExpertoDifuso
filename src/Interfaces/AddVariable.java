@@ -21,6 +21,11 @@ public class AddVariable extends javax.swing.JFrame {
     /**
      * Creates new form AddVariable
      */
+	
+	
+	/*
+	 * Comentario de Me
+	 */
     public AddVariable() {
         initComponents();
         listvariables = new ArrayList<Variable>();
