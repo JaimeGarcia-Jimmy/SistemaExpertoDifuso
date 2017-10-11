@@ -273,6 +273,9 @@ public class AddVariable extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Comentario para prueba de commit
+    
+    
     /**
      * Evento que se desencadena al seleccionar un elemento de ListVar
      */
