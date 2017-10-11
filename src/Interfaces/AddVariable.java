@@ -75,6 +75,7 @@ public class AddVariable extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtTraslape = new javax.swing.JTextField();
         btnGuardarTodo = new javax.swing.JButton();
+        btnActVal = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,6 +150,13 @@ public class AddVariable extends javax.swing.JFrame {
 
         btnGuardarTodo.setText("Guardar");
 
+        btnActVal.setText("Actualizar Valor");
+        btnActVal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActValActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,44 +165,47 @@ public class AddVariable extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtNomVar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnAddVar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActVal)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNomVar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnAddVar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNomVal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAddVal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtX4)
-                            .addComponent(txtX3)
-                            .addComponent(txtX2)
-                            .addComponent(txtX1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtY4)
-                            .addComponent(txtY3)
-                            .addComponent(txtY2)
-                            .addComponent(txtY1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)))
+                                .addComponent(txtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtNomVal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnAddVal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtX4)
+                                    .addComponent(txtX3)
+                                    .addComponent(txtX2)
+                                    .addComponent(txtX1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtY4)
+                                    .addComponent(txtY3)
+                                    .addComponent(txtY2)
+                                    .addComponent(txtY1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelGraf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -273,7 +284,8 @@ public class AddVariable extends javax.swing.JFrame {
                             .addComponent(txtTraslape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGuardarTodo)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnActVal))
         );
 
         pack();
@@ -498,6 +510,67 @@ public class AddVariable extends javax.swing.JFrame {
        
     }//GEN-LAST:event_txtTraslapeFocusLost
 
+    private void btnActValActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActValActionPerformed
+       //determinar el elemento seleccionado
+        int indiceVariable = ListVar.getSelectedIndex();
+        
+        //Validacion por si no se ha seleccionado ningun elemento de la lista de variables
+        if (indiceVariable == -1)
+            return;
+        
+        int indiceValor = ListVal.getSelectedIndex();
+        
+        //Validacion por si no se ha seleccionado ningun elemento de la lista de valores
+        if (indiceValor == -1)
+            return;
+        
+        //determinar el elemento seleccionado
+        Valor valorSel = listvariables.get(indiceVariable).getFunciones().get(indiceValor);
+        //Actualizar el nombre del valor seleccionado
+        valorSel.setNombre(txtNomVal.getText());
+        
+        //Validar cuantas txt cuentan con un valor para crear puntos
+        double x,y;
+        Punto nuevoPunto;
+        ArrayList<Punto> puntos= new ArrayList<Punto>();
+        
+        //Se verifica la txt para el punto 1
+        if (!(txtX1.getText().trim().isEmpty() || txtY1.getText().trim().isEmpty()))
+        {
+            x = Double.parseDouble(txtX1.getText());
+            y = Double.parseDouble(txtY1.getText());
+            nuevoPunto = new Punto(x,y);
+            puntos.add(nuevoPunto);
+        }
+        //Se verifica la txt para el punto 2
+        if (!(txtX2.getText().trim().isEmpty() || txtY2.getText().trim().isEmpty()))
+        {
+            x = Double.parseDouble(txtX2.getText());
+            y = Double.parseDouble(txtY2.getText());
+            nuevoPunto = new Punto(x,y);
+            puntos.add(nuevoPunto);
+        }
+        //Se verifica la txt para el punto 3
+        if (!(txtX3.getText().trim().isEmpty() || txtY3.getText().trim().isEmpty()))
+        {
+            x = Double.parseDouble(txtX3.getText());
+            y = Double.parseDouble(txtY3.getText());
+            nuevoPunto = new Punto(x,y);
+            puntos.add(nuevoPunto);
+        }
+        //Se verifica la txt para el punto 4
+        if (!(txtX4.getText().trim().isEmpty() || txtY4.getText().trim().isEmpty()))
+        {
+            x = Double.parseDouble(txtX4.getText());
+            y = Double.parseDouble(txtY4.getText());
+            nuevoPunto = new Punto(x,y);
+            puntos.add(nuevoPunto);
+        }
+        //Se envia el nuevo Arraylist al modelo de Valor
+        valorSel.setPuntos(puntos);
+        
+    }//GEN-LAST:event_btnActValActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -561,6 +634,7 @@ public class AddVariable extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> ListVal;
     private javax.swing.JList<String> ListVar;
+    private javax.swing.JButton btnActVal;
     private javax.swing.JButton btnAddVal;
     private javax.swing.JButton btnAddVar;
     private javax.swing.JButton btnGuardarTodo;
