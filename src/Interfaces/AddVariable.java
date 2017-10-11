@@ -52,13 +52,13 @@ public class AddVariable extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNomVar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        ListVar = new javax.swing.JList<String>();
+        ListVar = new javax.swing.JList<>();
         btnAddVar = new javax.swing.JButton();
         btnAddVal = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtNomVal = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ListVal = new javax.swing.JList<String>();
+        ListVal = new javax.swing.JList<>();
         panelGraf = new javax.swing.JPanel();
         txtX1 = new javax.swing.JTextField();
         txtX2 = new javax.swing.JTextField();
@@ -109,11 +109,6 @@ public class AddVariable extends javax.swing.JFrame {
 
         jLabel3.setText("Nombre Valor:");
 
-        ListVal.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         ListVal.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 ListValValueChanged(evt);
@@ -145,6 +140,12 @@ public class AddVariable extends javax.swing.JFrame {
         jLabel6.setText("Alias: ");
 
         jLabel7.setText("Traslape");
+
+        txtTraslape.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTraslapeFocusLost(evt);
+            }
+        });
 
         btnGuardarTodo.setText("Guardar");
 
@@ -477,6 +478,25 @@ public class AddVariable extends javax.swing.JFrame {
         listModelValores.addElement(nuevoValor.getNombre());
         ListVal.setModel(listModelValores);
     }//GEN-LAST:event_btnAddValActionPerformed
+
+    private void txtTraslapeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTraslapeFocusLost
+        
+        //determinar si existe una variable seleccionada
+        if(!ListVar.isSelectionEmpty())
+        {
+            //Recuperamos el indice de la lista (Variable seleccionada)
+            int indiceVariable = ListVar.getSelectedIndex();
+            //Validamos que el traslape no este vacio
+            if(!txtTraslape.getText().equals(""))
+            {
+                //Recuperamos el traslape 
+                double traslape = Double.parseDouble(txtTraslape.getText());
+                //Realizamos el set para desencadenar la actualizacion del Traslape
+                listvariables.get(indiceVariable).setTraslape(traslape);
+            }
+        }
+       
+    }//GEN-LAST:event_txtTraslapeFocusLost
 
     /**
      * @param args the command line arguments
