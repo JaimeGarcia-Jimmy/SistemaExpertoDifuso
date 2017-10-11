@@ -280,7 +280,7 @@ public class AddVariable extends javax.swing.JFrame {
 
     //Comentario para prueba de commit
     
-    
+    //Comentario de John
     /**
      * Evento que se desencadena al seleccionar un elemento de ListVar
      */
