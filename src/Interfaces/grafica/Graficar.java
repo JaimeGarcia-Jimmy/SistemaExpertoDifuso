@@ -25,17 +25,29 @@ public class Graficar extends JPanel {
 
 	public Graficar(Variable listVariable) {
 		super();
-		this.setSize(460, 260);
-		ancho = this.getWidth();
-		alto = this.getHeight();
+		conf();
 		this.funciones = listVariable.getFunciones();
 
 	}
+	public Graficar() {
+		super();
+		conf();
+		this.funciones = null;
 
+	}
+	
+	public void conf()
+	{
+		this.setSize(460, 260);
+		
+		
+	}
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D g2 = (Graphics2D) g;
+		ancho = this.getWidth();
+		alto = this.getHeight();
 		// Lineas de la grafica
 		g2.setStroke(new BasicStroke(2f));
 		g2.drawLine(30, 30, 30, alto - 30);
@@ -45,6 +57,7 @@ public class Graficar extends JPanel {
 		tamano = 100;
 		segmento = (ancho - 60) / tamano;
 	//Graficar n funciones
+		if(funciones != null)
 		for (Valor fun : funciones) 
 		{
 			g2.setColor(Color.black);
@@ -77,7 +90,13 @@ public class Graficar extends JPanel {
 		x = tamano - val;
 		return (int) (segmento * x) + 30;
 	}
-
+	
+	public void setVariable(Variable funcion)
+	{
+		this.funciones = funcion.getFunciones();
+		this.repaint();
+	}
+	
 	private int caclValRealY(double y) {
 		double val = ((alto-60) * y);
 		val = (alto-60) - val;
