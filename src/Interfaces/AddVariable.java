@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
+import Interfaces.grafica.Graficar;
+
 /**
  *
  * @author danie
@@ -21,6 +25,8 @@ public class AddVariable extends javax.swing.JFrame {
     /**
      * Creates new form AddVariable
      */
+	Graficar grafica = new Graficar();
+	
 	
 	
 	/*
@@ -287,8 +293,13 @@ public class AddVariable extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnActVal))
         );
-
+        
+        
         pack();
+        
+        grafica.setSize(panelGraf.getWidth(),panelGraf.getHeight());
+        panelGraf.add(grafica);
+        
     }// </editor-fold>//GEN-END:initComponents
 
     //Comentario para prueba de commit
@@ -318,7 +329,7 @@ public class AddVariable extends javax.swing.JFrame {
         ListVal.setModel(listModelValores);
         
         //TODO: Pintar la grafica con los subconjuntos difusos(valores) de la variable seleccionada
-        
+        grafica.setVariable(listvariables.get(indice));
     }//GEN-LAST:event_ListVarValueChanged
     
     /**
@@ -483,7 +494,7 @@ public class AddVariable extends javax.swing.JFrame {
          ******************************************************************/
         nuevoValor.setPuntos(puntos);
         listvariables.get(indiceVariable).getFunciones().add(nuevoValor);
-        
+        grafica.setVariable(listvariables.get(indiceVariable));
         /******************************************************************+
          * Agregar el nuevo valor a la JList de valores                    |
          ******************************************************************/

@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 public class Variable 
 {
-    private ArrayList<Valor> Funciones;
+    private ArrayList<Valor> funciones;
     private String nombre;
     private String alias;
     private double traslape;
     
     public Variable()
     {
-        this.Funciones = new ArrayList();
+        this.funciones = new ArrayList();
     }
     
     public void actuTraslape()
     {
-        for(int i=0;i<Funciones.size()-1;i++)
+        for(int i=0;i<funciones.size()-1;i++)
         {
-            Valor f1 =Funciones.get(i);
-            Valor f2 =Funciones.get(i+1);
+            Valor f1 =funciones.get(i);
+            Valor f2 =funciones.get(i+1);
             
             //Penultimo punto de la funcion 1
             Double x1a = f1.getPuntos().get(f1.getPuntos().size()-2).getX();
@@ -45,11 +45,11 @@ public class Variable
     }
   
     public ArrayList<Valor> getFunciones() {
-        return Funciones;
+        return funciones;
     }
 
     public void setFunciones(ArrayList<Valor> Funciones) {
-        this.Funciones = Funciones;
+        this.funciones = Funciones;
     }
 
     public String getNombre() {
