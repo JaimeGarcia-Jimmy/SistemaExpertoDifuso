@@ -7,7 +7,7 @@ public class Variable
     private ArrayList<Valor> funciones;
     private String nombre;
     private String alias;
-    private double traslape;
+    private double traslape=0.0;
     
     public Variable()
     {
