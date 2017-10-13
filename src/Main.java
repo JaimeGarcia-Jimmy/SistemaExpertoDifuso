@@ -3,6 +3,7 @@ import Archivo.Files;
 import Archivo.Registro;
 import Logica.Valor;
 import Logica.Punto;
+import Logica.Variable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -19,51 +20,81 @@ import java.util.logging.Logger;
  * @author danie
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         Punto p1 = new Punto(0.0,0.0);
         Punto p2 = new Punto(1.0,1.0);
         Punto p3 = new Punto(2.0,2.0);
-        //Punto p4 = new Punto(3.0,3.0);
+        Punto p4 = new Punto(3.0,3.0);
         
         
         Valor f = new Valor();
-        f.setNombre("Poco");
+        f.setNombre("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");      //20 BYTES
         ArrayList<Punto> puntos = new ArrayList();
         puntos.add(p1);
         puntos.add(p2);
         puntos.add(p3);
-       // puntos.add(p4);
-        f.setPuntos(puntos);
+        puntos.add(p4);
+        
+        f.setPuntos(puntos);                                                    //84 BYTES
+                                                                                //104
         
         
         
+        ArrayList<Valor> val = new ArrayList<Valor>();      
+       
+        val.add(f);//1        //104 BYTES
+        val.add(f);//2                                
+        val.add(f);//3                                                
+        val.add(f);//4 
+        val.add(f);//5 
+        val.add(f);//6 
+        val.add(f);//7 
+        val.add(f);//8
+        val.add(f);//9
+        val.add(f);//10
+        
+        
+        //Variable
+        Variable var = new Variable();
+        
+        var.setNombre("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");                               //20BYTES
+        var.setAlias("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");                              //10 BYTES
+        var.setTraslape(0.0);                                                 //08BYTES
+        var.setFunciones(val);                                                  //840 BYTES
+        
+        ArrayList<Variable> v = new ArrayList<Variable>();                      
+        v.add(var);//1  
+        v.add(var);//1   //1108 BYTES
+        v.add(var);//1   
+        v.add(var);//1   
+        v.add(var);//1   
+
+        
+        
+        //Escribir
         
         Files file = new Files();
-        
         try {
            
             file.abrir();
-           /* for (int i = 1; i <= 1; i++) {
-               */ Registro R = new Registro();
-                R.setVarLinguistica("Entusiasmo");
-                R.setF1(f);
-                file.escribir(R);
-                /*
-                //file.escribir(R,i*R.DIM);
-            }
-        */
-        
-        //    file.abrir();
-       /// file.file.seek(0);
-          //  Registro R = file.leer();
-          //  Registro R1 = file.leer(9*R.DIM);
-     
+            file.escribir(v);
+            
+            System.out.println(file.file.length()/1108);
             file.cerrar();
         
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
+        
+        //Leer
+        
+        
+        file.abrir();
+        Registro R= file.leer();
+        
+        System.out.println("");
     }
 }
