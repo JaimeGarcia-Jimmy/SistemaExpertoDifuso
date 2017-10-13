@@ -2,28 +2,29 @@ package Logica;
 
 public class Punto 
 {
-	private double x;
-	private double y;
+	private Double x;
+	private Double y;
         
        
-	public Punto(double x, double y) {
+	public Punto(Double x, Double y) {
 		super();
 		this.x = x;
 		this.y = y;
 	}
-	public void setX(double x) {
+
+	public void setX(Double x) {
 		this.x = x;
 	} 
-        public double getX() {
+        public Double getX() {
 		return x;
 	}
-	public double getY() {
+	public Double getY() {
 		return y;
 	}
-	public void setY(double y) {
+	public void setY(Double y) {
 		this.y = y;
 	}
-	public Punto(double x) {
+	public Punto(Double x) {
 		super();
 		this.x = x;
 	}
