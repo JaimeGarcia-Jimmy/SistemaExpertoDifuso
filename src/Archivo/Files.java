@@ -6,15 +6,18 @@
 package Archivo;
 import java.io.*; 
 import java.text.ParseException;
+import java.util.ArrayList;
 public class Files 
 { 
    // Fichero de acceso aleatorio 
 public RandomAccessFile file; 
+public Registro R;
    // Apertura del fichero 
 public void abrir() 
           throws IOException 
    { 
-     file = new RandomAccessFile("Files/subconjuntos.data","rw"); 
+     file = new RandomAccessFile("Files/subconjuntos.data","rw");
+      this.R = new Registro();
    }  
    // Cierre del fichero 
 public void cerrar() 
@@ -25,18 +28,18 @@ public void cerrar()
    }  
    // Escribir un registro 
    // en la posición actual del cursor 
-   public void escribir (Registro registro)throws IOException 
+   public void escribir (ArrayList array)throws IOException 
    { 
      if (file!=null) 
-        registro.write(file); 
+        R.write(file,array); 
    } 
    // Escribir un registro en una posición cualquiera 
-   public void escribir (Registro registro, long pos) throws IOException 
+   public void escribir (long pos,ArrayList array) throws IOException 
    { 
         if (file!=null) 
         {   
             file.seek ( (pos-1)*Registro.DIM ); 
-            escribir(registro); 
+            escribir(array); 
         } 
     } 
    // Leer del fichero el registro  
