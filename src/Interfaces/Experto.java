@@ -5,6 +5,7 @@
  */
 package Interfaces;
 
+import Logica.InferenciaDifusa;
 import Logica.Variable;
 import java.util.ArrayList;
 
@@ -250,7 +251,49 @@ public class Experto extends javax.swing.JFrame {
      * Boton que inicia la inferencia difusa
      */
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
-        // TODO add your handling code here:
+        //Crear un arreglo con las entradas del usuario
+        ArrayList<Double> entradas = new ArrayList();
+        
+        for (int i=0 ; i<listaVariables.size() ; i++) {
+            
+            switch(i) {
+                case 0:
+                    entradas.add(Double.parseDouble(txtVar1.getText()));
+                    break;
+                case 1:
+                    entradas.add(Double.parseDouble(txtVar2.getText()));
+                    break;
+                case 2:
+                    entradas.add(Double.parseDouble(txtVar3.getText()));
+                    break;
+                case 3:
+                    entradas.add(Double.parseDouble(txtVar4.getText()));
+                    break;
+                case 4:
+                    entradas.add(Double.parseDouble(txtVar5.getText()));
+                    break;
+                case 5:
+                    entradas.add(Double.parseDouble(txtVar6.getText()));
+                    break;
+                case 6:
+                    entradas.add(Double.parseDouble(txtVar7.getText()));
+                    break;
+                case 7:
+                    entradas.add(Double.parseDouble(txtVar8.getText()));
+                    break;
+                case 8:
+                    entradas.add(Double.parseDouble(txtVar9.getText()));
+                    break;
+                case 9:
+                    entradas.add(Double.parseDouble(txtVar10.getText()));
+                    break;
+            }
+            
+        }
+        
+        //crear el objeto que realiza el proceso de inferencia difusa
+        InferenciaDifusa inferencia = new InferenciaDifusa(listaVariables, entradas);
+        Double resultado = inferencia.calcularSalida();
     }//GEN-LAST:event_btnProcesarActionPerformed
 
     /**
