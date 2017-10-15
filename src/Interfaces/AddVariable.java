@@ -8,12 +8,17 @@ package Interfaces;
 import Logica.Punto;
 import Logica.Valor;
 import Logica.Variable;
+
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
+import Archivo.Files;
+import Archivo.Registro;
 import Interfaces.grafica.Graficar;
 
 /**
@@ -37,19 +42,24 @@ public class AddVariable extends javax.swing.JFrame {
      * Creates new form AddVariable
      */
 	Graficar grafica = new Graficar();
+	Registro reg = new Registro();
+	Files archivo = new Files();
 	
 	private int indSegList;
 	
 	/*
 	 * Comentario de Me
 	 */
-    public AddVariable() {
+    public AddVariable() throws IOException, ParseException {
         initComponents();
         listvariables = new ArrayList<Variable>();
         listModelVariables = new DefaultListModel();
         listModelValores = new DefaultListModel();
         
         //TODO: Cargar registros del archivo a listvariables
+        archivo.abrir();
+        reg.read(archivo.file);
+        listvariables = reg.getVariable();
         
         //llenar JList de Variables
         llenarJListVariables();
@@ -166,7 +176,17 @@ public class AddVariable extends javax.swing.JFrame {
         });
 
         btnGuardarTodo.setText("Guardar");
-
+        btnGuardarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	try {
+					btnGuardarTodoActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            }
+        });
+        
         btnActVal.setText("Actualizar Valor");
         btnActVal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -537,6 +557,10 @@ public class AddVariable extends javax.swing.JFrame {
        
     }//GEN-LAST:event_txtTraslapeFocusLost
 
+    private void btnGuardarTodoActionPerformed(java.awt.event.ActionEvent evt) throws IOException
+    {
+    	reg.write(archivo.file, listvariables);
+    }
     private void btnActValActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActValActionPerformed
        //determinar el elemento seleccionado
         int indiceVariable = ListVar.getSelectedIndex();
@@ -628,7 +652,12 @@ public class AddVariable extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddVariable().setVisible(true);
+                try {
+					new AddVariable().setVisible(true);
+				} catch (IOException | ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
     }
