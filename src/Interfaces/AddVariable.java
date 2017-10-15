@@ -23,6 +23,17 @@ import Interfaces.grafica.Graficar;
 public class AddVariable extends javax.swing.JFrame {
 
     /**
+     * Aqui te va un cometario a ver si te funca
+     * 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+     * Nulla vel orci vitae libero tempus pretium eu eget est. 
+     * Donec efficitur molestie nulla, ut scelerisque justo varius vel. 
+     * Ut non leo quis felis blandit egestas. In laoreet urna et erat malesuada, 
+     * eget pellentesque urna sagittis. Morbi consectetur, odio ut vulputate 
+     * pellentesque, ligula nulla consequat lectus, quis sodales 
+     * nisi nisl vel nulla. Donec pretium neque elit. Donec condimentum 
+     * enim id hendrerit suscipit. Nullam viverra sapien bibendum, ornare 
+
+
      * Creates new form AddVariable
      */
 	Graficar grafica = new Graficar();
