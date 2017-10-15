@@ -19,10 +19,10 @@ import Logica.Variable;
 public class Graficar extends JPanel {
 	private int alto, ancho;
 	private ArrayList<Valor> funciones;
-
+	private int valSeleccionado;
 	private double segmento;
 	private double tamano;
-
+	
 	public Graficar(Variable listVariable) {
 		super();
 		conf();
@@ -42,6 +42,11 @@ public class Graficar extends JPanel {
 		
 		
 	}
+	public void setValSeleccionado(int valSeleccionado)
+	{
+		this.valSeleccionado = valSeleccionado;
+	}
+	
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
@@ -56,10 +61,13 @@ public class Graficar extends JPanel {
 		g2.drawString("1", 20, 30);
 		tamano = 100;
 		segmento = (ancho - 60) / tamano;
-	//Graficar n funciones
+		int val = 0;
+		//Graficar n funciones
+		
 		if(funciones != null)
 		for (Valor fun : funciones) 
 		{
+			
 			g2.setColor(Color.black);
 			//Obetenemos los puntos de la primera funcion
 			ArrayList<Punto> puntos = fun.getPuntos();
@@ -75,12 +83,15 @@ public class Graficar extends JPanel {
 				g2.drawLine(caclValRealX(b.getX()), alto-30, caclValRealX(b.getX()), alto-20);
 				g2.drawString(""+b.getX(), caclValRealX(b.getX())-10, alto-10);
 				g2.setColor(Color.BLUE);
+				if(valSeleccionado == val)
+					g2.setColor(Color.red);
 				
 				g2.drawLine(caclValRealX(a.getX()), caclValRealY(a.getY()), caclValRealX(b.getX()),
 						caclValRealY(b.getY()));
 				
 				a = b;
 			}
+			val++;
 		}
 
 	}

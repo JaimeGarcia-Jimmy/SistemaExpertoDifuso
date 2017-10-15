@@ -27,7 +27,7 @@ public class AddVariable extends javax.swing.JFrame {
      */
 	Graficar grafica = new Graficar();
 	
-	
+	private int indSegList;
 	
 	/*
 	 * Comentario de Me
@@ -356,13 +356,14 @@ public class AddVariable extends javax.swing.JFrame {
         ListVar.setModel(listModelVariables);
        
     }//GEN-LAST:event_btnAddVarActionPerformed
-
+    
     /**
      * Evento que se desencadena al seleccionar un elemento de ListVal
      */
     private void ListValValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ListValValueChanged
         //determinar el elemento seleccionado
         int indiceVariable = ListVar.getSelectedIndex();
+        
         
         //Validacion por si no se ha seleccionado ningun elemento de la lista de variables
         if (indiceVariable == -1)
@@ -422,6 +423,10 @@ public class AddVariable extends javax.swing.JFrame {
             txtY1.setText(""+valorSel.getPuntos().get(0).getY());
             txtY2.setText(""+valorSel.getPuntos().get(1).getY());
         }
+        
+        grafica.setValSeleccionado(indiceValor);
+        grafica.repaint();
+        
     }//GEN-LAST:event_ListValValueChanged
 
     /**
