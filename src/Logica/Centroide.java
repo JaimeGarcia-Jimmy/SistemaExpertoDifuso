@@ -35,10 +35,12 @@ public class Centroide extends Util
 		double area = calcArea(A, B) - calcArea(p, A.getX(), B.getX());
 		return area;
 	}
-	public double caclMx(Punto A, Punto B)
+	public double calcMx(Punto A, Punto B)
 	{
+		//Calculamos los valores de la recta, f(x) = mx + b
 		double m = calcM(A, B);
 		double b = calcB(A, m);
+		
 		return evaluarMx(B.getX(), m, b)-evaluarMx(A.getX(), m, b);
 	}
 	private double evaluarMx(double x,double m, double b)
@@ -53,11 +55,22 @@ public class Centroide extends Util
 	}
 	
 	
-	private double calcMy(Punto A, Punto B)
+	public double calcMy(Punto A, Punto B)
 	{
 		double m = calcM(A,B);
 		double b = calcB(A,m);
 		return evaluarMy(B.getX(), m, b)- evaluarMy(A.getX(), m, b);
+	}
+	
+	public Punto calcCentroide(Punto A,Punto B)
+	{
+		Punto pCentroide = new Punto();
+		double masa = calcMasa(A, B);
+		double x = calcMy(A, B)/masa;
+		double y = calcMx(A,B)/masa;
+		pCentroide.setX(x);
+		pCentroide.setY(y);
+		return pCentroide;
 	}
 	
 	public double calcMasa(Punto A, Punto B)
