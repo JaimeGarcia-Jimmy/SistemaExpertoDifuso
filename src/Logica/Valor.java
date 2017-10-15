@@ -2,7 +2,7 @@ package Logica;
 
 import java.util.ArrayList;
 
-public class Valor {
+public class Valor extends Util {
 	private ArrayList<Punto> puntos;
 	private String nombre;
 
@@ -32,12 +32,7 @@ public class Valor {
 		return (m*x + B);	
 	}
         
-	public double calcM(Punto a, Punto b) {
-		return (b.getY() - a.getY()) / (b.getX() - a.getX());
-	}
-	public double calcB(Punto x, double m){
-		return x.getY() - (m*x.getX());
-	}
+	
 	public ArrayList<Punto> getPuntos() {
 		return puntos;
 	}

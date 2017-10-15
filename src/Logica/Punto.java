@@ -5,6 +5,10 @@ public class Punto
 	private Double x;
 	private Double y;
         
+	public Punto ()
+	{
+		
+	}
        
 	public Punto(Double x, Double y) {
 		super();
