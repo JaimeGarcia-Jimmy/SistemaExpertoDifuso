@@ -5,6 +5,13 @@
  */
 package Interfaces;
 
+import Archivo.Files;
+import Archivo.Registro;
+import Logica.Variable;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+
 /**
  *
  * @author danie
@@ -14,9 +21,18 @@ public class addConsecuente extends javax.swing.JFrame {
     /**
      * Creates new form addConsecuente
      */
-    public addConsecuente() 
+    ArrayList<Variable> listvariables;
+    Registro reg = new Registro();
+    Files archivo = new Files();
+    
+    public addConsecuente() throws IOException, ParseException 
     {
         initComponents();
+        listvariables= new ArrayList<Variable>();
+        archivo.abrir();
+        reg.read(archivo.file);
+        listvariables = reg.getVariable();
+        
         getCombinacion();
         /*
         vect Object[][];
@@ -27,9 +43,11 @@ public class addConsecuente extends javax.swing.JFrame {
             vector.setLayout(new BorderLayout());
             vector.add(jss,0);
         */
+        
     }
     private void getCombinacion()
     {
+        int numVariables = listvariables.size();
         
     }
     /**
