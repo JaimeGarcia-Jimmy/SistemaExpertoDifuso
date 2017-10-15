@@ -95,6 +95,11 @@ public class Main {
         file.abrir();
         Registro R= file.leer();
         
+        R.setConsecuente("em^en", "em");
+        R.setConsecuente("me^ne", "am");
+        System.out.println(""+R.getConsecuente("em^en"));
+        R.delConsecuente();
+        
         System.out.println("");
     }
 }

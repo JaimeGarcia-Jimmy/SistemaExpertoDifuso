@@ -142,18 +142,28 @@ public class Registro extends Files {
     public long intoHash(String regla)
     {
         long c2;
-
+        long c1;
+        
+        String regla2 = regla.replace("^","");
+        
         if (regla.hashCode()<0) 
+            c1  = regla.hashCode()*-1;
+        else
+            c1 = regla.hashCode();
+        
+        if (regla2.hashCode()<0) 
             c2  = regla.hashCode()*-1;
         else
             c2 = regla.hashCode();
-        long H = (1000)*((c2 % 10))+1;
+        
+        long H = ((c1/11)*((c2 % 100))+1)/117191;
+        
+        
         return H;       
     }
 
     public String getConsecuente(String regla) throws FileNotFoundException, IOException
     {
-
         RandomAccessFile archivo = new RandomAccessFile("Files/consecuentes.data","rw");
         int id= (int) intoHash(regla);
         archivo.seek(id);
@@ -164,7 +174,14 @@ public class Registro extends Files {
     {
         RandomAccessFile archivo = new RandomAccessFile("Files/consecuentes.data","rw");
         int pos = (int) intoHash(regla);
+        System.out.println(""+pos);
         archivo.seek(pos);
         writeString(archivo,consecuente,10);
+    }
+    
+    public void delConsecuente() throws FileNotFoundException, IOException
+    {
+        RandomAccessFile archivo = new RandomAccessFile("Files/consecuentes.data","rw");
+        archivo.setLength(0);
     }
 }
