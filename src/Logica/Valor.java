@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Valor extends Util {
 	private ArrayList<Punto> puntos;
 	private String nombre;
+        private Double valorDifuso;
 
         public double calcMembresia(double x) {
 		ArrayList<Punto> puntos = getPuntos();
@@ -47,6 +48,14 @@ public class Valor extends Util {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+        
+        public Double getValorDifuso() {
+		return valorDifuso;
+	}
+
+	public void setValorDifuso(Double valorDifuso) {
+		this.valorDifuso = valorDifuso;
 	}
 
 	public Valor(ArrayList<Punto> puntos) {
