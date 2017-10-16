@@ -11,4 +11,25 @@ package Logica;
  */
 public class Consecuente {
     
+    private String alias;
+    private Double valorDifuso;
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public Double getValorDifuso() {
+        return valorDifuso;
+    }
+
+    public void setValorDifuso(Double valorDifuso) {
+        this.valorDifuso = valorDifuso;
+    }
+    
+    
+    
 }
