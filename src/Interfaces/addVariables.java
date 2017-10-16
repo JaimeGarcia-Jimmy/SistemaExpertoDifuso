@@ -336,6 +336,10 @@ public class addVariables extends javax.swing.JFrame {
         );
 
         pack();
+        grafica.setSize(panelGraf.getWidth(),panelGraf.getHeight());
+        panelGraf.add(grafica);
+        
+        
     }// </editor-fold>//GEN-END:initComponents
 
     private void ListValValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ListValValueChanged
