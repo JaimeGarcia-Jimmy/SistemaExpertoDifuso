@@ -9,6 +9,7 @@ import Archivo.Files;
 import Archivo.Registro;
 import Logica.Valor;
 import Logica.Variable;
+import java.awt.BorderLayout;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -39,16 +42,28 @@ public class addConsecuente extends javax.swing.JFrame {
         listvariables = reg.getVariable();
         
         getCombinacion();
-        /*
-        vect Object[][];
-        headers String [][];
-        JTable jtt = new JTable(vect,headers);
-            jt.getColumnModel().getColumn(0).setCellRenderer(new RowHeaderRenderer());
-            JScrollPane jss = new JScrollPane(jtt);
-            vector.setLayout(new BorderLayout());
-            vector.add(jss,0);
-        */
         
+        //Creamos el contenedor de la tabla
+        Object[][] vect = new Object[vari.size()][2];
+        
+        int i=0;
+        for(List regla: vari)
+        {
+           String reg="";
+           for(Object condicion: regla)
+           {
+               reg+=condicion+" ^ ";
+           }
+           vect[i][0]=reg.substring(0,reg.length()-3);
+           vect[i][1]="";
+           i++;
+        }
+        System.out.println("");
+        String[] headers = {"Antecedente","Consecuente"};
+        JTable jt = new JTable(vect,headers);
+        JScrollPane js = new JScrollPane(jt);
+        jpReglas.setLayout(new BorderLayout());
+        jpReglas.add(js,0);
     }
         
         ArrayList<String> aliasvalor = new ArrayList();
@@ -64,7 +79,6 @@ public class addConsecuente extends javax.swing.JFrame {
                 ArrayList<String> nomb = new ArrayList();
                 for (Valor val : var.getFunciones()) 
                 {
-
                     nomb.add(val.getNombre().substring(0, 2));
                 }
                 vari.add(nomb);
@@ -126,7 +140,7 @@ public class addConsecuente extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jpReglas = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
@@ -137,16 +151,16 @@ public class addConsecuente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Establecer Consecuentes");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reglas"));
+        jpReglas.setBorder(javax.swing.BorderFactory.createTitledBorder("Reglas"));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jpReglasLayout = new javax.swing.GroupLayout(jpReglas);
+        jpReglas.setLayout(jpReglasLayout);
+        jpReglasLayout.setHorizontalGroup(
+            jpReglasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 345, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jpReglasLayout.setVerticalGroup(
+            jpReglasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -181,12 +195,12 @@ public class addConsecuente extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jpReglas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 59, Short.MAX_VALUE)
+                                .addGap(0, 155, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(btnRegresar)
@@ -202,7 +216,7 @@ public class addConsecuente extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpReglas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
@@ -263,7 +277,7 @@ public class addConsecuente extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jpReglas;
     // End of variables declaration//GEN-END:variables
 }
