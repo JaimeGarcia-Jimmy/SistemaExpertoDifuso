@@ -43,12 +43,15 @@ public class Centroide extends Util
 		
 		return evaluarMx(B.getX(), m, b)-evaluarMx(A.getX(), m, b);
 	}
+	//Ecuacion para calcular Mx = m²x³/6  + mbx²/4  + b²x 
 	private double evaluarMx(double x,double m, double b)
 	{
 		return ((Math.pow(m,2)* Math.pow(x, 3)) / 6 )
 				+((m*b*Math.pow(x, 2) ) / 4 )
 				+ (Math.pow(b, 2) * x);
 	}
+	
+	//Ecuacion para calcular My = mx³/3 + bx²/2
 	private double evaluarMy(double x,double m, double b)
 	{
 		return ((m*Math.pow(x, 3))/3) + ((b* Math.pow(x, 2)) /2) ;
@@ -61,6 +64,27 @@ public class Centroide extends Util
 		double b = calcB(A,m);
 		return evaluarMy(B.getX(), m, b)- evaluarMy(A.getX(), m, b);
 	}
+	//Calcula en centroide dada una funcion de puntos
+	public double calcCentroide(ArrayList<Punto> puntos)
+	{
+		ArrayList<Punto> pCentroides = new ArrayList<Punto>();
+		Punto A = puntos.get(0);
+		Punto B = null;
+		double sumatoria = 0;
+		for(int i = 1; i < puntos.size(); i++)
+		{
+			B = puntos.get(i);
+			Punto temp = calcCentroide(A, B);
+			A = B;
+			pCentroides.add(temp);
+			temp =null;
+		}
+		for(Punto p: pCentroides)
+			sumatoria+= p.getX();
+		System.out.println(pCentroides.size());
+		return sumatoria/pCentroides.size();
+	}
+	
 	
 	public Punto calcCentroide(Punto A,Punto B)
 	{
@@ -72,7 +96,7 @@ public class Centroide extends Util
 		pCentroide.setY(y);
 		return pCentroide;
 	}
-	
+	//Ecuacion para calcular M = mx² + bx
 	public double calcMasa(Punto A, Punto B)
 	{
 		return calcArea(A, B);
