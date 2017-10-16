@@ -7,10 +7,15 @@ package Interfaces;
 
 import Archivo.Files;
 import Archivo.Registro;
+import Logica.Valor;
 import Logica.Variable;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,11 +50,52 @@ public class addConsecuente extends javax.swing.JFrame {
         */
         
     }
+        
+        ArrayList<String> aliasvalor = new ArrayList();
+        List<List<String>> vari;
+
     private void getCombinacion()
     {
-        int numVariables = listvariables.size();
+        vari = new ArrayList();
+        for( Variable var : listvariables )
+        {
+            ArrayList<String> nomb = new ArrayList();
+            for (Valor val : var.getFunciones()) 
+            {
+                
+                nomb.add(val.getNombre());
+            }
+            vari.add(nomb);
+        }
         
+        vari = productoCartesianoListas(vari);
     }
+        List<List<String>> productoCartesianoListas(List<List<String>> lists) 
+        {
+            List<List<String>> resultLists = new ArrayList<List<String>>();
+            if (lists.size() == 0) 
+            {
+                resultLists.add(new ArrayList<String>());
+                return resultLists;
+            } 
+            else 
+            {
+                List<String> firstList = lists.get(0);
+                List<List<String>> remainingLists = productoCartesianoListas(lists.subList(1, lists.size()));
+                for (String condition : firstList) 
+                {
+                    for (List<String> remainingList : remainingLists) 
+                    {
+                        ArrayList<String> resultList = new ArrayList<String>();
+                        resultList.add(condition);
+                        resultList.addAll(remainingList);
+                        resultLists.add(resultList);
+                    }
+                }
+            }
+            return resultLists;
+        } 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,6 +110,7 @@ public class addConsecuente extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +147,8 @@ public class addConsecuente extends javax.swing.JFrame {
 
         btnRegresar.setText("Regresar");
 
+        btnBorrar.setText("Borrar Consecuentes");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,9 +167,12 @@ public class addConsecuente extends javax.swing.JFrame {
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 59, Short.MAX_VALUE)
-                                .addComponent(btnRegresar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnGuardar)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(btnRegresar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnGuardar))
+                                    .addComponent(btnBorrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -133,7 +185,9 @@ public class addConsecuente extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+                        .addComponent(btnBorrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar)
                             .addComponent(btnRegresar))))
@@ -173,12 +227,19 @@ public class addConsecuente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addConsecuente().setVisible(true);
+                try {
+                    new addConsecuente().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(addConsecuente.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(addConsecuente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
