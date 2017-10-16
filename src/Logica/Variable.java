@@ -8,7 +8,7 @@ public class Variable
     private String nombre;
     private String alias;
     private double traslape=0.0;
-    
+    private boolean salida;
     public Variable()
     {
         this.funciones = new ArrayList();
@@ -35,6 +35,16 @@ public class Variable
         }
         
     }
+
+    public boolean isSalida() {
+        return salida;
+    }
+
+    public void setSalida(boolean salida) {
+        this.salida = salida;
+    }
+    
+    
     public double getTraslape() {
         return traslape;
     }
