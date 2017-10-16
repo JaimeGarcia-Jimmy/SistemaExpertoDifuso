@@ -256,37 +256,41 @@ public class Experto extends javax.swing.JFrame {
         
         for (int i=0 ; i<listaVariables.size() ; i++) {
             
-            switch(i) {
-                case 0:
-                    entradas.add(Double.parseDouble(txtVar1.getText()));
-                    break;
-                case 1:
-                    entradas.add(Double.parseDouble(txtVar2.getText()));
-                    break;
-                case 2:
-                    entradas.add(Double.parseDouble(txtVar3.getText()));
-                    break;
-                case 3:
-                    entradas.add(Double.parseDouble(txtVar4.getText()));
-                    break;
-                case 4:
-                    entradas.add(Double.parseDouble(txtVar5.getText()));
-                    break;
-                case 5:
-                    entradas.add(Double.parseDouble(txtVar6.getText()));
-                    break;
-                case 6:
-                    entradas.add(Double.parseDouble(txtVar7.getText()));
-                    break;
-                case 7:
-                    entradas.add(Double.parseDouble(txtVar8.getText()));
-                    break;
-                case 8:
-                    entradas.add(Double.parseDouble(txtVar9.getText()));
-                    break;
-                case 9:
-                    entradas.add(Double.parseDouble(txtVar10.getText()));
-                    break;
+            if(!listaVariables.get(i).getSalida()) {
+                
+                switch(i) {
+                    case 0:
+                        entradas.add(Double.parseDouble(txtVar1.getText()));
+                        break;
+                    case 1:
+                        entradas.add(Double.parseDouble(txtVar2.getText()));
+                        break;
+                    case 2:
+                        entradas.add(Double.parseDouble(txtVar3.getText()));
+                        break;
+                    case 3:
+                        entradas.add(Double.parseDouble(txtVar4.getText()));
+                        break;
+                    case 4:
+                        entradas.add(Double.parseDouble(txtVar5.getText()));
+                        break;
+                    case 5:
+                        entradas.add(Double.parseDouble(txtVar6.getText()));
+                        break;
+                    case 6:
+                        entradas.add(Double.parseDouble(txtVar7.getText()));
+                        break;
+                    case 7:
+                        entradas.add(Double.parseDouble(txtVar8.getText()));
+                        break;
+                    case 8:
+                        entradas.add(Double.parseDouble(txtVar9.getText()));
+                        break;
+                    case 9:
+                        entradas.add(Double.parseDouble(txtVar10.getText()));
+                        break;
+                }
+                
             }
             
         }
@@ -358,57 +362,61 @@ public class Experto extends javax.swing.JFrame {
     public void mostrarEntradas() {
         for (int i=0 ; i<listaVariables.size() ; i++) {
             
-            switch(i) {
-                case 0:
-                    lblVar1.setText(listaVariables.get(i).getNombre());
-                    lblVar1.setVisible(true);
-                    txtVar1.setVisible(true);
-                    break;
-                case 1:
-                    lblVar2.setText(listaVariables.get(i).getNombre());
-                    lblVar2.setVisible(true);
-                    txtVar2.setVisible(true);
-                    break;
-                case 2:
-                    lblVar3.setText(listaVariables.get(i).getNombre());
-                    lblVar3.setVisible(true);
-                    txtVar3.setVisible(true);
-                    break;
-                case 3:
-                    lblVar4.setText(listaVariables.get(i).getNombre());
-                    lblVar4.setVisible(true);
-                    txtVar4.setVisible(true);
-                    break;
-                case 4:
-                    lblVar5.setText(listaVariables.get(i).getNombre());
-                    lblVar5.setVisible(true);
-                    txtVar5.setVisible(true);
-                    break;
-                case 5:
-                    lblVar6.setText(listaVariables.get(i).getNombre());
-                    lblVar6.setVisible(true);
-                    txtVar6.setVisible(true);
-                    break;
-                case 6:
-                    lblVar7.setText(listaVariables.get(i).getNombre());
-                    lblVar7.setVisible(true);
-                    txtVar7.setVisible(true);
-                    break;
-                case 7:
-                    lblVar8.setText(listaVariables.get(i).getNombre());
-                    lblVar8.setVisible(true);
-                    txtVar8.setVisible(true);
-                    break;
-                case 8:
-                    lblVar9.setText(listaVariables.get(i).getNombre());
-                    lblVar9.setVisible(true);
-                    txtVar9.setVisible(true);
-                    break;
-                case 9:
-                    lblVar10.setText(listaVariables.get(i).getNombre());
-                    lblVar10.setVisible(true);
-                    txtVar10.setVisible(true);
-                    break;
+            if(!listaVariables.get(i).getSalida()) {
+                
+                switch(i) {
+                    case 0:
+                        lblVar1.setText(listaVariables.get(i).getNombre());
+                        lblVar1.setVisible(true);
+                        txtVar1.setVisible(true);
+                        break;
+                    case 1:
+                        lblVar2.setText(listaVariables.get(i).getNombre());
+                        lblVar2.setVisible(true);
+                        txtVar2.setVisible(true);
+                        break;
+                    case 2:
+                        lblVar3.setText(listaVariables.get(i).getNombre());
+                        lblVar3.setVisible(true);
+                        txtVar3.setVisible(true);
+                        break;
+                    case 3:
+                        lblVar4.setText(listaVariables.get(i).getNombre());
+                        lblVar4.setVisible(true);
+                        txtVar4.setVisible(true);
+                        break;
+                    case 4:
+                        lblVar5.setText(listaVariables.get(i).getNombre());
+                        lblVar5.setVisible(true);
+                        txtVar5.setVisible(true);
+                        break;
+                    case 5:
+                        lblVar6.setText(listaVariables.get(i).getNombre());
+                        lblVar6.setVisible(true);
+                        txtVar6.setVisible(true);
+                        break;
+                    case 6:
+                        lblVar7.setText(listaVariables.get(i).getNombre());
+                        lblVar7.setVisible(true);
+                        txtVar7.setVisible(true);
+                        break;
+                    case 7:
+                        lblVar8.setText(listaVariables.get(i).getNombre());
+                        lblVar8.setVisible(true);
+                        txtVar8.setVisible(true);
+                        break;
+                    case 8:
+                        lblVar9.setText(listaVariables.get(i).getNombre());
+                        lblVar9.setVisible(true);
+                        txtVar9.setVisible(true);
+                        break;
+                    case 9:
+                        lblVar10.setText(listaVariables.get(i).getNombre());
+                        lblVar10.setVisible(true);
+                        txtVar10.setVisible(true);
+                        break;
+                }
+                
             }
             
         }
