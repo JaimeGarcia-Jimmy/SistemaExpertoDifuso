@@ -189,7 +189,6 @@ public class Registro extends Files {
     {
         RandomAccessFile archivo = new RandomAccessFile("Files/consecuentes.data","rw");
         int pos = (int) intoHash(regla);
-        System.out.println(""+pos);
         archivo.seek(pos*10);
         writeString(archivo,consecuente,10);
     }
