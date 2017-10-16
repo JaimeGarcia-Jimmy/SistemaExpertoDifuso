@@ -256,7 +256,7 @@ public class Experto extends javax.swing.JFrame {
         
         for (int i=0 ; i<listaVariables.size() ; i++) {
             
-            if(!listaVariables.get(i).getSalida()) {
+            if(!listaVariables.get(i).isSalida()) {
                 
                 switch(i) {
                     case 0:
@@ -362,7 +362,7 @@ public class Experto extends javax.swing.JFrame {
     public void mostrarEntradas() {
         for (int i=0 ; i<listaVariables.size() ; i++) {
             
-            if(!listaVariables.get(i).getSalida()) {
+            if(!listaVariables.get(i).isSalida()) {
                 
                 switch(i) {
                     case 0:
