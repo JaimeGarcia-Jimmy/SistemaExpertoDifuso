@@ -102,7 +102,9 @@ public class AddVariable extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtTraslape = new javax.swing.JTextField();
         btnGuardarTodo = new javax.swing.JButton();
-        btnActVal = new javax.swing.JButton();
+        cbxSalida = new javax.swing.JCheckBox();
+        btnBorrarVariable = new javax.swing.JButton();
+        btnBorrarValor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,6 +139,11 @@ public class AddVariable extends javax.swing.JFrame {
 
         jLabel3.setText("Nombre Valor:");
 
+        ListVal.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
         ListVal.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 ListValValueChanged(evt);
@@ -169,28 +176,21 @@ public class AddVariable extends javax.swing.JFrame {
 
         jLabel7.setText("Traslape");
 
-        txtTraslape.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTraslapeFocusLost(evt);
+        btnGuardarTodo.setText("Guardar");
+
+        cbxSalida.setText("¿Es la Variable de Salida?");
+
+        btnBorrarVariable.setText("Borrar Variable");
+        btnBorrarVariable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarVariableActionPerformed(evt);
             }
         });
 
-        btnGuardarTodo.setText("Guardar");
-        btnGuardarTodo.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrarValor.setText("Borrar Valor");
+        btnBorrarValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	try {
-					btnGuardarTodoActionPerformed(evt);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            }
-        });
-        
-        btnActVal.setText("Actualizar Valor");
-        btnActVal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActValActionPerformed(evt);
+                btnBorrarValorActionPerformed(evt);
             }
         });
 
@@ -201,22 +201,27 @@ public class AddVariable extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnActVal)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane1)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtNomVar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnAddVar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(26, 26, 26)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNomVar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddVar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBorrarVariable)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbxSalida)))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBorrarValor)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -242,18 +247,18 @@ public class AddVariable extends javax.swing.JFrame {
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelGraf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 413, Short.MAX_VALUE)
+                                .addGap(28, 28, 28)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelGraf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTraslape, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnGuardarTodo, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addGap(0, 413, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnGuardarTodo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtTraslape, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -312,7 +317,11 @@ public class AddVariable extends javax.swing.JFrame {
                                 .addGap(14, 14, 14)
                                 .addComponent(btnAddVar)
                                 .addGap(7, 7, 7)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cbxSalida)
+                                    .addComponent(btnBorrarVariable)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelGraf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,16 +330,12 @@ public class AddVariable extends javax.swing.JFrame {
                             .addComponent(txtTraslape, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGuardarTodo)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnActVal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBorrarValor)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        
-        
+
         pack();
-        
-        grafica.setSize(panelGraf.getWidth(),panelGraf.getHeight());
-        panelGraf.add(grafica);
-        
     }// </editor-fold>//GEN-END:initComponents
 
     //Comentario para prueba de commit
@@ -342,7 +347,7 @@ public class AddVariable extends javax.swing.JFrame {
     private void ListVarValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ListVarValueChanged
         //determinar el elemento seleccionado
         int indice = ListVar.getSelectedIndex();
-        System.out.println(indice);
+        
         
         //Validacion por si no se ha seleccionado ningun elemento de la lista de variables
         if (indice == -1)
@@ -354,8 +359,10 @@ public class AddVariable extends javax.swing.JFrame {
         //Vaciar el JList de valores
         listModelValores.removeAllElements();
         //Agregar los valores de la variable seleccionada al JList de valores
+        cbxSalida.setSelected(listvariables.get(indice).isSalida());
         for (Valor val : listvariables.get(indice).getFunciones()) {
             listModelValores.addElement(val.getNombre());
+            
         }
         ListVal.setModel(listModelValores);
         
@@ -380,6 +387,7 @@ public class AddVariable extends javax.swing.JFrame {
         Variable var = new Variable();
         var.setNombre(variable);
         var.setAlias(alias);
+        var.setSalida(cbxSalida.isSelected());
         listvariables.add(var);
        
         //Agregar nueva variable a la JList
@@ -559,6 +567,7 @@ public class AddVariable extends javax.swing.JFrame {
 
     private void btnGuardarTodoActionPerformed(java.awt.event.ActionEvent evt) throws IOException
     {
+        //Escribimos todo la info en el archivo binario
     	reg.write(archivo.file, listvariables);
     }
     private void btnActValActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActValActionPerformed
@@ -621,6 +630,32 @@ public class AddVariable extends javax.swing.JFrame {
         valorSel.setPuntos(puntos);
         
     }//GEN-LAST:event_btnActValActionPerformed
+
+    private void btnBorrarVariableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarVariableActionPerformed
+        //determinar si existe una variable seleccionada
+        if(!ListVar.isSelectionEmpty())
+        {
+            //Recuperamos el indice de la lista (Variable seleccionada)
+            int indiceVariable = ListVar.getSelectedIndex();
+            //Removemos de la lista global el indice que seleccionaron
+            listvariables.remove(indiceVariable);
+        }
+        
+    }//GEN-LAST:event_btnBorrarVariableActionPerformed
+
+    private void btnBorrarValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarValorActionPerformed
+       //determinar si existe una variable seleccionada
+        if(!ListVar.isSelectionEmpty())
+        {
+            //Recuperamos el indice de la lista (Variable seleccionada)
+            int indiceVariable = ListVar.getSelectedIndex();
+            if(!ListVal.isSelectionEmpty())
+            {
+                int indiceValor = ListVal.getSelectedIndex();
+                listvariables.get(indiceVariable).getFunciones().remove(indiceValor);
+            }
+        }
+    }//GEN-LAST:event_btnBorrarValorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -690,10 +725,12 @@ public class AddVariable extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> ListVal;
     private javax.swing.JList<String> ListVar;
-    private javax.swing.JButton btnActVal;
     private javax.swing.JButton btnAddVal;
     private javax.swing.JButton btnAddVar;
+    private javax.swing.JButton btnBorrarValor;
+    private javax.swing.JButton btnBorrarVariable;
     private javax.swing.JButton btnGuardarTodo;
+    private javax.swing.JCheckBox cbxSalida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
