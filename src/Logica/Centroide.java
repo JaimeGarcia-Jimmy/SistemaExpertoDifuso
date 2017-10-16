@@ -71,9 +71,14 @@ public class Centroide extends Util
 		Punto A = puntos.get(0);
 		Punto B = null;
 		double sumatoria = 0;
+		double sumatoriaMy = 0;
+		double sumatoriaM = 0;
 		for(int i = 1; i < puntos.size(); i++)
 		{
 			B = puntos.get(i);
+			sumatoriaMy += calcMy(A, B);
+			sumatoriaM += calcM(A, B);
+			
 			Punto temp = calcCentroide(A, B);
 			A = B;
 			pCentroides.add(temp);
@@ -81,8 +86,7 @@ public class Centroide extends Util
 		}
 		for(Punto p: pCentroides)
 			sumatoria+= p.getX();
-		System.out.println(pCentroides.size());
-		return sumatoria/pCentroides.size();
+		return (sumatoria/pCentroides.size());
 	}
 	
 	
