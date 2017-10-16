@@ -5,9 +5,15 @@
  */
 package Interfaces;
 
+import Archivo.Files;
+import Archivo.Registro;
 import Logica.InferenciaDifusa;
 import Logica.Variable;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,11 +24,15 @@ public class Experto extends javax.swing.JFrame {
     /**
      * Creates new form Experto
      */
-    public Experto() {
+    public Experto() throws IOException, ParseException {
         initComponents();
         esconderEntradas();
         listaVariables = new ArrayList();
+        
         //cargar informacion del archivo al modelo listaVariables
+        archivo.abrir();
+        reg.read(archivo.file);
+        listaVariables = reg.getVariable();
         
         //Mostrar las variables cargadas para entrada de datos
         mostrarEntradas();
@@ -330,7 +340,13 @@ public class Experto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Experto().setVisible(true);
+                try {
+                    new Experto().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Experto.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Experto.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -452,5 +468,7 @@ public class Experto extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public ArrayList<Variable> listaVariables;
+    Registro reg = new Registro();
+    Files archivo = new Files();
 
 }
