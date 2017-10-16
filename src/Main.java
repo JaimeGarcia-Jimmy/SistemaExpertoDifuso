@@ -62,15 +62,15 @@ public class Main {
         var.setAlias("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");                              //10 BYTES
         var.setTraslape(0.0);                                                 //08BYTES
         var.setFunciones(val);                                                  //840 BYTES
-        
+        var.setSalida(false);
         ArrayList<Variable> v = new ArrayList<Variable>();                      
         v.add(var);//1  
-        v.add(var);//1   //1108 BYTES
+        /*v.add(var);//1   //1108 BYTES
         v.add(var);//1   
         v.add(var);//1   
         v.add(var);//1   
 
-        
+*/        
         
         //Escribir
         
@@ -80,7 +80,7 @@ public class Main {
             file.abrir();
             file.escribir(v);
             
-            System.out.println(file.file.length()/1108);
+            System.out.println(file.file.length());
             file.cerrar();
         
         } catch (IOException ex) {
@@ -91,7 +91,7 @@ public class Main {
         
         //Leer
         
-        
+        /*
         file.abrir();
         Registro R= file.leer();
         
@@ -101,5 +101,6 @@ public class Main {
         R.delConsecuente();
         
         System.out.println("");
+*/
     }
 }

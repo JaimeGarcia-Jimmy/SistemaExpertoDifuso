@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 public class Registro extends Files { 
     
-    public static int DIM = 1108; 
+    public static int DIM = 1109; 
     ArrayList<Variable> variables;
 
     public ArrayList<Variable> getVariable() {
@@ -41,6 +41,7 @@ public class Registro extends Files {
             variable.setNombre( readString(file,20).replace(" ",""));
             variable.setAlias(  readString(file,10).replace(" ",""));
             variable.setTraslape(file.readDouble());
+            variable.setSalida(file.readBoolean());
 
             ArrayList<Valor> vl = new ArrayList();
 
@@ -99,6 +100,7 @@ public class Registro extends Files {
             writeString(file,v.getNombre(),20);
             writeString(file,v.getAlias(),10);
             file.writeDouble(v.getTraslape());
+            file.writeBoolean(v.isSalida());
             ArrayList<Valor> vl = v.getFunciones();
             if(vl.isEmpty())
                 writeString(file,"",520);
