@@ -59,16 +59,20 @@ public class addConsecuente extends javax.swing.JFrame {
         vari = new ArrayList();
         for( Variable var : listvariables )
         {
-            ArrayList<String> nomb = new ArrayList();
-            for (Valor val : var.getFunciones()) 
+            if(!var.isSalida())
             {
-                
-                nomb.add(val.getNombre());
+                ArrayList<String> nomb = new ArrayList();
+                for (Valor val : var.getFunciones()) 
+                {
+
+                    nomb.add(val.getNombre().substring(0, 2));
+                }
+                vari.add(nomb);
             }
-            vari.add(nomb);
         }
         
         vari = productoCartesianoListas(vari);
+        //System.out.println("");
     }
         List<List<String>> productoCartesianoListas(List<List<String>> lists) 
         {
@@ -81,18 +85,34 @@ public class addConsecuente extends javax.swing.JFrame {
             else 
             {
                 List<String> firstList = lists.get(0);
+                //Nos dirijimos hasta la ultima lista de la coleccion de listas (Despues de llegar al true de este IF)
+                //Una vez que recibimos las combinaciones resultantes de las listas
+                //que preceden de nuestra posicion actual
+                //y guardando la lista de nuestra posicion actual 
+                //comenzaremos a combinar las condiciones compuestas
+                
+                
                 List<List<String>> remainingLists = productoCartesianoListas(lists.subList(1, lists.size()));
+                //Tomamos una a una las condiciones 
                 for (String condition : firstList) 
                 {
+                    //Tomamos todas las condiciones de la lista que antecede a la ultima (de forma recursiva)
                     for (List<String> remainingList : remainingLists) 
                     {
+                        
                         ArrayList<String> resultList = new ArrayList<String>();
+                        //Agregamos la condicion de la lista ( de la penultima )
                         resultList.add(condition);
+                        //Agregamos la condicion de la (ulitma lista)
                         resultList.addAll(remainingList);
+                        //La combinacion de estas dos condiciones seran en otro caso
+                        //una condicion unica que se tendra que combinar con cada una de
+                        //las condiciones de la lista que antecede a nuestra posicion actual
                         resultLists.add(resultList);
                     }
                 }
             }
+            //Enviamos las combinaciones resultantes hacia atras recursivo OnO
             return resultLists;
         } 
     
