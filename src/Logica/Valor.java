@@ -33,6 +33,16 @@ public class Valor extends Util {
 		return (m*x + B);	
 	}
         
+        /*
+	 *  x = (y-B)/m
+	 */
+	public double inversa(double  y,Punto a,Punto b)
+	{
+		double m = calcM(a, b);
+		double B = calcB(a, m);
+		return (y-B)/m;	
+	}
+        
 	
 	public ArrayList<Punto> getPuntos() {
 		return puntos;

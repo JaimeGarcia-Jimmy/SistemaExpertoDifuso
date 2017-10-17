@@ -13,6 +13,11 @@ public class Consecuente {
     
     private String alias;
     private Double valorDifuso;
+    
+    public Consecuente(String alias, Double valorDifuso) {
+        this.alias = alias;
+        this.valorDifuso = valorDifuso;
+    }
 
     public String getAlias() {
         return alias;

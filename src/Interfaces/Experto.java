@@ -106,6 +106,8 @@ public class Experto extends javax.swing.JFrame {
 
         lblVar10.setText("jLabel10");
 
+        txtVar1.setMinimumSize(new java.awt.Dimension(150, 22));
+
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
@@ -169,17 +171,17 @@ public class Experto extends javax.swing.JFrame {
                                         .addComponent(lblVar10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtVar10, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                                    .addComponent(txtVar10, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                     .addComponent(txtVar9, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtVar8, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtVar7, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtVar6, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtVar5, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtVar4, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtVar1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtVar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtVar2, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtVar3, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnProcesar)
                                 .addGap(73, 73, 73)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -307,7 +309,11 @@ public class Experto extends javax.swing.JFrame {
         
         //crear el objeto que realiza el proceso de inferencia difusa
         InferenciaDifusa inferencia = new InferenciaDifusa(listaVariables, entradas);
-        Double resultado = inferencia.calcularSalida();
+        try {
+            Double resultado = inferencia.calcularSalida();
+        } catch (IOException ex) {
+            Logger.getLogger(Experto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnProcesarActionPerformed
 
     /**

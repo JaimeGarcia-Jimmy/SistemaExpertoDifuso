@@ -90,7 +90,7 @@
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtVar10" pref="69" max="32767" attributes="0"/>
+                                  <Component id="txtVar10" pref="150" max="32767" attributes="0"/>
                                   <Component id="txtVar9" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtVar8" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtVar7" alignment="0" max="32767" attributes="0"/>
@@ -101,7 +101,7 @@
                                   <Component id="txtVar2" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtVar3" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="74" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnProcesar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
@@ -280,6 +280,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtVar1">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[150, 22]"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtVar2">
     </Component>
