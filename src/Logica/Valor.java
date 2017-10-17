@@ -72,5 +72,7 @@ public class Valor extends Util {
 		this.puntos = puntos;
 	}
 
-	public Valor (){}
+	public Valor (){
+            this.puntos = new ArrayList();
+        }
 }

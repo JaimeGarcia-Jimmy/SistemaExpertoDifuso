@@ -170,7 +170,14 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnInferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInferenciaActionPerformed
-        Experto ex = new Experto();
+        Experto ex = null;
+        try {
+            ex = new Experto();
+        } catch (IOException ex1) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex1);
+        } catch (ParseException ex1) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex1);
+        }
         ex.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInferenciaActionPerformed

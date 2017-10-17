@@ -20,6 +20,8 @@ public class InferenciaDifusa {
     private ArrayList<Variable> listaVariables;
     private ArrayList<Double> entradas;
     
+    public Double resultadoInferencia;
+    
     public InferenciaDifusa(ArrayList<Variable> listaVariables, ArrayList<Double> entradas) {
         this.listaVariables = listaVariables;
         this.entradas = entradas;
@@ -28,7 +30,7 @@ public class InferenciaDifusa {
     /*
      * Este metodo es el que realiza el proceso de inferencia difusa
      */
-    public Double calcularSalida() throws FileNotFoundException, IOException {
+    public Valor calcularSalida() throws FileNotFoundException, IOException {
         Double resultado = 0.0;
         Double membresia = 0.0;
         
@@ -42,17 +44,21 @@ public class InferenciaDifusa {
         //Calcular la membresia de cada valor linguistico con las variables de entrada
         for (Variable variable : listaVariables) {
             
-            Double variableEntradaActual = entradas.get(indice);
+            if (!variable.isSalida()) {
+                Double variableEntradaActual = entradas.get(indice);
             
-            for (Valor valor : variable.getFunciones()) {
-                //calcular el valor de membresia de la variable actual
-                membresia = valor.calcMembresia(variableEntradaActual);
-                //guardarlo en el atributo valorDifuso por comodidad
-                valor.setValorDifuso(membresia);
+                for (Valor valor : variable.getFunciones()) {
+                    //calcular el valor de membresia de la variable actual
+                    membresia = valor.calcMembresia(variableEntradaActual);
+                    //guardarlo en el atributo valorDifuso por comodidad
+                    valor.setValorDifuso(membresia);
+                }
+
+
+                indice++;
             }
             
             
-            indice++;
         }
         
         
@@ -88,6 +94,9 @@ public class InferenciaDifusa {
                 
                 //concatenar valores en la regla
                 regla += cadenas.get(i).get(j);
+                //agregar simbolo de conjuncion
+                if (j<cadenas.get(0).size()-1)
+                    regla+= " ^ ";
                 //buscar el valor minimo en la regla (conjuncion)
                 if(membresias.get(i).get(j) < minimo)
                     minimo = membresias.get(i).get(j);
@@ -95,7 +104,7 @@ public class InferenciaDifusa {
             }
             
             //evaluar regla con funcion hash para obtener consecuente
-            cadenaConsecuente = reg.getConsecuente(regla);
+            cadenaConsecuente = reg.getConsecuente(regla).trim();
             
             //recorrer los consecuentes para reemplazar si es necesario la membresia de un valor existente
             consecuenteRepetido = false;
@@ -131,6 +140,9 @@ public class InferenciaDifusa {
             }
         }
         
+        //calcular las intersecciones
+        varSalida.calcularIntersecciones();
+        
         //Recorres los valores de la variable para empezar a calcular los puntos resultantes
         int index = 0;
         Consecuente consec = null;
@@ -143,7 +155,8 @@ public class InferenciaDifusa {
             
             //obtener el consecuente que corresponda con el valor actual
             for (Consecuente cons : consecuentes) {
-                if (valor.getNombre().substring(0, 2) == cons.getAlias())
+                String nombreCortado = valor.getNombre().substring(0, 2);
+                if (nombreCortado.equals(cons.getAlias()))
                     consec = cons;
             }
             
@@ -326,11 +339,18 @@ public class InferenciaDifusa {
         /***********************************************
          Calcular el centroide con los puntos obtenidos
          **********************************************/
-        Centroide cent = new Centroide();
-        resultado = cent.calcCentroide(funcionAgr.getPuntos());
+        /*Centroide cent = new Centroide();
+        resultado = cent.calcCentroide(funcionAgr.getPuntos());*/
+        Double sumaNumerador=0.0, sumaDenominador=0.0;
         
+        for (int z=0 ; z<100 ; z++) {
+            sumaNumerador+=(z*funcionAgr.calcMembresia(z));
+            sumaDenominador+=funcionAgr.calcMembresia(z);
+        }
         
-        return resultado;
+        this.resultadoInferencia = sumaNumerador/sumaDenominador;
+        
+        return funcionAgr;
     }
     
     /*

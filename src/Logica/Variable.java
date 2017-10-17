@@ -38,7 +38,7 @@ public class Variable
         }
         
         //calcular las intersecciones despues de ajustar los traslapes
-        calcularIntersecciones();
+        //calcularIntersecciones();
         
     }
     
