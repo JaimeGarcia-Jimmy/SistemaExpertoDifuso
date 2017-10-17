@@ -9,6 +9,7 @@ import Archivo.Files;
 import Archivo.Registro;
 import Logica.Valor;
 import Logica.Variable;
+import java.awt.BorderLayout;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -29,7 +32,13 @@ public class addConsecuente extends javax.swing.JFrame {
     ArrayList<Variable> listvariables;
     Registro reg = new Registro();
     Files archivo = new Files();
-    
+    ArrayList<String> aliasvalor = new ArrayList();
+    List<List<String>> vari;
+    Object[][] tablaalias ;
+    ArrayList<String> alias;
+    JTable jtAlias;
+    JTable jtReglas;
+    Registro regi = new Registro();
     public addConsecuente() throws IOException, ParseException 
     {
         initComponents();
@@ -37,45 +46,78 @@ public class addConsecuente extends javax.swing.JFrame {
         archivo.abrir();
         reg.read(archivo.file);
         listvariables = reg.getVariable();
-        
         getCombinacion();
-        /*
-        vect Object[][];
-        headers String [][];
-        JTable jtt = new JTable(vect,headers);
-            jt.getColumnModel().getColumn(0).setCellRenderer(new RowHeaderRenderer());
-            JScrollPane jss = new JScrollPane(jtt);
-            vector.setLayout(new BorderLayout());
-            vector.add(jss,0);
-        */
-        
+        //Creamos el contenedor de la tabla
+        iniciarTabla();
+        iniciarTablaAlias();
     }
+    private void iniciarTabla() throws IOException
+    {
+        Object[][] vect = new Object[vari.size()][2];
         
-        ArrayList<String> aliasvalor = new ArrayList();
-        List<List<String>> vari;
-
+        int i=0;
+        for(List regla: vari)
+        {
+           String reg="";
+           for(Object condicion: regla)
+           {
+               reg+=condicion+" ^ ";
+           }
+           vect[i][0]=reg.substring(0,reg.length()-3);
+           //Recuperamos el consecuente del archivo (si este existe)
+           //sino se deja en blanco 
+           regi = new Registro();
+           //regi.getConsecuente(vect[i][0].toString());
+           vect[i][1]=regi.getConsecuente(vect[i][0].toString()).replace(" ","");
+           i++;
+        }
+        String[] headers = {"Antecedente","Consecuente"};
+        jtReglas = new JTable(vect,headers);
+        JScrollPane js = new JScrollPane(jtReglas);
+        jpReglas.setLayout(new BorderLayout());
+        jpReglas.add(js,0);
+    }
+    ;
+    private void iniciarTablaAlias()
+    {
+        String[] headers = {"Variable","Valor","Alias"};
+        jtAlias = new JTable(tablaalias,headers);
+        JScrollPane js = new JScrollPane(jtAlias);
+        jpAlias.setLayout(new BorderLayout());
+        jpAlias.add(js,0);
+    }
     private void getCombinacion()
     {
         vari = new ArrayList();
+        alias = new ArrayList<String>();
         for( Variable var : listvariables )
         {
+            String nombre = var.getNombre();
             if(!var.isSalida())
             {
                 ArrayList<String> nomb = new ArrayList();
                 for (Valor val : var.getFunciones()) 
                 {
-
                     nomb.add(val.getNombre().substring(0, 2));
+                    alias.add(nombre);
+                    alias.add(val.getNombre());
+                    alias.add(val.getNombre().substring(0, 2));
                 }
                 vari.add(nomb);
             }
         }
         
-        vari = productoCartesianoListas(vari);
-        //System.out.println("");
-    }
-        List<List<String>> productoCartesianoListas(List<List<String>> lists) 
+        tablaalias= new Object[alias.size()/3][3];
+        for (int i = 0; i <alias.size()/3; i++) 
         {
+            tablaalias[i][0]=alias.get(i*3);
+            tablaalias[i][1]=alias.get((i*3)+1);
+            tablaalias[i][2]=alias.get((i*3)+2);
+        }
+        vari = productoCartesianoListas(vari);
+    }
+    private List<List<String>> productoCartesianoListas(List<List<String>> lists) 
+    {
             List<List<String>> resultLists = new ArrayList<List<String>>();
             if (lists.size() == 0) 
             {
@@ -126,8 +168,8 @@ public class addConsecuente extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jpReglas = new javax.swing.JPanel();
+        jpAlias = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
@@ -137,37 +179,52 @@ public class addConsecuente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Establecer Consecuentes");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reglas"));
+        jpReglas.setBorder(javax.swing.BorderFactory.createTitledBorder("Reglas"));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jpReglasLayout = new javax.swing.GroupLayout(jpReglas);
+        jpReglas.setLayout(jpReglasLayout);
+        jpReglasLayout.setHorizontalGroup(
+            jpReglasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 345, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jpReglasLayout.setVerticalGroup(
+            jpReglasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Alias"));
+        jpAlias.setBorder(javax.swing.BorderFactory.createTitledBorder("Alias"));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jpAliasLayout = new javax.swing.GroupLayout(jpAlias);
+        jpAlias.setLayout(jpAliasLayout);
+        jpAliasLayout.setHorizontalGroup(
+            jpAliasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jpAliasLayout.setVerticalGroup(
+            jpAliasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 248, Short.MAX_VALUE)
         );
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         btnBorrar.setText("Borrar Consecuentes");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,12 +238,12 @@ public class addConsecuente extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jpReglas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpAlias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 59, Short.MAX_VALUE)
+                                .addGap(0, 199, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(btnRegresar)
@@ -202,9 +259,9 @@ public class addConsecuente extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpReglas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jpAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
                         .addComponent(btnBorrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -217,53 +274,44 @@ public class addConsecuente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+            for (int j = 0; j < jtReglas.getRowCount(); j++) 
+            {
+                try 
+                {
+                    regi.setConsecuente(jtReglas.getModel().getValueAt(j,0).toString(), jtReglas.getModel().getValueAt(j,1).toString());
+                } 
+                catch (IOException ex) 
+                {
+                    Logger.getLogger(addConsecuente.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addConsecuente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addConsecuente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addConsecuente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addConsecuente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+            }       
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new addConsecuente().setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(addConsecuente.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    Logger.getLogger(addConsecuente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+     try 
+        {
+            reg.delConsecuente();
+            for (int i = 0; i < jtReglas.getRowCount(); i++) 
+                jtReglas.setValueAt("",i,1);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(addConsecuente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+    this.dispose();
+    Principal p  = new Principal();
+    p.setVisible(true);
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jpAlias;
+    private javax.swing.JPanel jpReglas;
     // End of variables declaration//GEN-END:variables
 }

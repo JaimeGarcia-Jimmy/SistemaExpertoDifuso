@@ -24,8 +24,18 @@ public class Registro extends Files {
     private String readString(RandomAccessFile file, int dim) throws IOException 
     { 
       char campo[] = new char[dim]; 
-      for (int i=0; i<dim; i++) 
-          campo[i] = file.readChar(); 
+      for (int i=0; i<dim; i++)
+      {
+          try
+          {
+              campo[i] = file.readChar();
+          }
+          catch (Exception e)
+          {
+              campo[i]=' ';
+          }
+          
+      }
       return new String(campo).replace('\0',' '); 
     } 
     private ArrayList<Variable> readArrayVariable(RandomAccessFile file) throws IOException
@@ -160,7 +170,8 @@ public class Registro extends Files {
         
         long H = ((c1/11)*((c2 % 100))+1)/117191;
         
-        
+        if(H<0)
+            H = H*-1;
         return H;       
     }
 
@@ -168,7 +179,9 @@ public class Registro extends Files {
     {
         RandomAccessFile archivo = new RandomAccessFile("Files/consecuentes.data","rw");
         int id= (int) intoHash(regla);
-        archivo.seek(id);
+        if(!(id<0))
+            archivo.seek(id*10);
+        
         String consecuente = readString(archivo,10);
         return consecuente;
     }
@@ -176,8 +189,7 @@ public class Registro extends Files {
     {
         RandomAccessFile archivo = new RandomAccessFile("Files/consecuentes.data","rw");
         int pos = (int) intoHash(regla);
-        System.out.println(""+pos);
-        archivo.seek(pos);
+        archivo.seek(pos*10);
         writeString(archivo,consecuente,10);
     }
     

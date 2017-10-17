@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        
+        /*
         Punto p1 = new Punto(0.0,0.0);
         Punto p2 = new Punto(1.0,1.0);
         Punto p3 = new Punto(2.0,2.0);
@@ -68,9 +68,7 @@ public class Main {
         /*v.add(var);//1   //1108 BYTES
         v.add(var);//1   
         v.add(var);//1   
-        v.add(var);//1   
-
-*/        
+        v.add(var);//1    
         
         //Escribir
         
